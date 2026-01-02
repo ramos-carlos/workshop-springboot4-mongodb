@@ -2,6 +2,7 @@ package com.projeto.workshopmongo.Resources;
 
 import com.projeto.workshopmongo.DTO.UserDTO;
 import com.projeto.workshopmongo.Service.UserService;
+import com.projeto.workshopmongo.domain.Post;
 import com.projeto.workshopmongo.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,5 +56,11 @@ public class UserResources {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();//codigo 404
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
